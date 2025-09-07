@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import axios from "axios";
 
 // Webhook URL for call initiation
 const WEBHOOK_URL = "https://n8n.srv743759.hstgr.cloud/webhook/netsurf";
@@ -42,53 +40,111 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-xl border-0 p-8">
-        <div className="text-center space-y-2 pb-8">
-          <div className="mx-auto w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '1rem'
+    }}>
+      <div style={{
+        width: '100%',
+        maxWidth: '400px',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+        padding: '2rem'
+      }}>
+        <div style={{
+          textAlign: 'center',
+          paddingBottom: '2rem'
+        }}>
+          <div style={{
+            width: '64px',
+            height: '64px',
+            backgroundColor: '#3b82f6',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 1rem'
+          }}>
+            <svg style={{ width: '32px', height: '32px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">NetSurf Direct</h1>
-          <p className="text-slate-600">Call Management System</p>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1e293b' }}>NetSurf Direct</h1>
+          <p style={{ color: '#64748b' }}>Call Management System</p>
         </div>
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-slate-700 font-medium block">Email Address</label>
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div>
+            <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#334155' }}>Email Address</label>
             <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter the designated Email"
-              className="w-full h-11 px-3 border border-slate-200 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+              style={{
+                width: '100%',
+                height: '44px',
+                padding: '0 12px',
+                border: '1px solid #cbd5e1',
+                borderRadius: '4px',
+                fontSize: '1rem'
+              }}
               required
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-slate-700 font-medium block">Password</label>
+          <div>
+            <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#334155' }}>Password</label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full h-11 px-3 border border-slate-200 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+              style={{
+                width: '100%',
+                height: '44px',
+                padding: '0 12px',
+                border: '1px solid #cbd5e1',
+                borderRadius: '4px',
+                fontSize: '1rem'
+              }}
               required
             />
           </div>
           {error && (
-            <div className="border border-red-200 bg-red-50 rounded-md p-3 flex items-center space-x-2">
-              <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style={{
+              border: '1px solid #fecaca',
+              backgroundColor: '#fef2f2',
+              borderRadius: '4px',
+              padding: '0.75rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <svg style={{ width: '16px', height: '16px', color: '#dc2626' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-red-700">{error}</span>
+              <span style={{ color: '#dc2626' }}>{error}</span>
             </div>
           )}
           <button 
             type="submit" 
-            className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md disabled:opacity-50"
+            style={{
+              width: '100%',
+              height: '44px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              fontWeight: '500',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.7 : 1
+            }}
             disabled={loading}
           >
             {loading ? "Signing in..." : "Sign In"}
@@ -134,16 +190,23 @@ const CallInitiation = ({ onLogout }) => {
         PCAP: "netsurf"
       };
 
-      const response = await axios.post(WEBHOOK_URL, payload, {
+      // Using fetch instead of axios to avoid dependency issues
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
+        body: JSON.stringify(payload),
         timeout: 10000 // 10 second timeout
       });
 
-      setSuccess(true);
-      setPhoneNumber("");
-      setTimeout(() => setSuccess(false), 3000);
+      if (response.ok) {
+        setSuccess(true);
+        setPhoneNumber("");
+        setTimeout(() => setSuccess(false), 3000);
+      } else {
+        setError("Servers are busy, please try again later");
+      }
     } catch (error) {
       setError("Servers are busy, please try again later");
       console.error("Webhook error:", error);
@@ -159,28 +222,60 @@ const CallInitiation = ({ onLogout }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%)'
+    }}>
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div style={{
+        backgroundColor: 'white',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+        borderBottom: '1px solid #e2e8f0'
+      }}>
+        <div style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '1rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              backgroundColor: '#3b82f6',
+              borderRadius: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <svg style={{ width: '20px', height: '20px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-800">NetSurf Direct</h1>
-              <p className="text-sm text-slate-600">Call Management</p>
+              <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1e293b' }}>NetSurf Direct</h1>
+              <p style={{ fontSize: '0.875rem', color: '#64748b' }}>Call Management</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-slate-600">Welcome, {userEmail}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span style={{ fontSize: '0.875rem', color: '#64748b' }}>Welcome, {userEmail}</span>
             <button 
               onClick={handleLogout}
-              className="px-3 py-1 border border-slate-200 hover:bg-slate-50 rounded-md text-sm flex items-center space-x-2"
+              style={{
+                padding: '0.25rem 0.75rem',
+                border: '1px solid #cbd5e1',
+                borderRadius: '0.25rem',
+                backgroundColor: 'white',
+                fontSize: '0.875rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                cursor: 'pointer'
+              }}
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
               <span>Sign Out</span>
@@ -190,57 +285,114 @@ const CallInitiation = ({ onLogout }) => {
       </div>
 
       {/* Main Content */}
-      <div className="flex items-center justify-center p-8">
-        <div className="w-full max-w-lg bg-white rounded-lg shadow-xl border-0 p-8">
-          <div className="text-center pb-8">
-            <h2 className="text-2xl font-bold text-slate-800">Initiate Call</h2>
-            <p className="text-slate-600 mt-2">
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '2rem'
+      }}>
+        <div style={{
+          width: '100%',
+          maxWidth: '500px',
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+          padding: '2rem'
+        }}>
+          <div style={{
+            textAlign: 'center',
+            paddingBottom: '2rem'
+          }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1e293b' }}>Initiate Call</h2>
+            <p style={{ color: '#64748b', marginTop: '0.5rem' }}>
               Enter the 10-digit mobile number to initiate a call
             </p>
           </div>
-          <form onSubmit={handleInitiateCall} className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="phone" className="text-slate-700 font-medium block">Mobile Number</label>
-              <div className="relative">
+          <form onSubmit={handleInitiateCall} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div>
+              <label htmlFor="phone" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#334155' }}>Mobile Number</label>
+              <div style={{ position: 'relative' }}>
                 <input
                   id="phone"
                   type="tel"
                   value={phoneNumber}
                   onChange={handleNumberChange}
                   placeholder="9876543210"
-                  className="w-full h-12 text-lg font-mono border border-slate-200 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none pl-4 pr-16"
+                  style={{
+                    width: '100%',
+                    height: '48px',
+                    padding: '0 12px',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '4px',
+                    fontSize: '1.125rem',
+                    fontFamily: 'monospace'
+                  }}
                   maxLength={10}
                   required
                 />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-slate-500">
+                <div style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  fontSize: '0.875rem',
+                  color: '#94a3b8'
+                }}>
                   {phoneNumber.length}/10
                 </div>
               </div>
             </div>
 
             {success && (
-              <div className="border border-green-200 bg-green-50 rounded-md p-3 flex items-center space-x-2">
-                <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div style={{
+                border: '1px solid #bbf7d0',
+                backgroundColor: '#f0fdf4',
+                borderRadius: '4px',
+                padding: '0.75rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}>
+                <svg style={{ width: '16px', height: '16px', color: '#16a34a' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-green-700">
+                <span style={{ color: '#16a34a' }}>
                   Call initiated successfully for {phoneNumber}
                 </span>
               </div>
             )}
 
             {error && (
-              <div className="border border-red-200 bg-red-50 rounded-md p-3 flex items-center space-x-2">
-                <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div style={{
+                border: '1px solid #fecaca',
+                backgroundColor: '#fef2f2',
+                borderRadius: '4px',
+                padding: '0.75rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}>
+                <svg style={{ width: '16px', height: '16px', color: '#dc2626' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-red-700">{error}</span>
+                <span style={{ color: '#dc2626' }}>{error}</span>
               </div>
             )}
 
             <button 
               type="submit" 
-              className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium text-lg rounded-md disabled:opacity-50"
+              style={{
+                width: '100%',
+                height: '48px',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                fontWeight: '500',
+                fontSize: '1.125rem',
+                cursor: (loading || phoneNumber.length !== 10) ? 'not-allowed' : 'pointer',
+                opacity: (loading || phoneNumber.length !== 10) ? 0.7 : 1
+              }}
               disabled={loading || phoneNumber.length !== 10}
             >
               {loading ? "Initiating..." : "Initiate Call"}
