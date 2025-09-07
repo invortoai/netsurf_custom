@@ -10,7 +10,7 @@ class NetSurfAPITester:
         self.tests_passed = 0
         self.failed_tests = []
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None):
+    def run_test(self, name, method, endpoint, expected_status, data=None, headers=None, params=None):
         """Run a single API test"""
         url = f"{self.base_url}/{endpoint}"
         if headers is None:
@@ -22,9 +22,12 @@ class NetSurfAPITester:
         
         try:
             if method == 'GET':
-                response = requests.get(url, headers=headers, timeout=10)
+                response = requests.get(url, headers=headers, params=params, timeout=10)
             elif method == 'POST':
-                response = requests.post(url, json=data, headers=headers, timeout=10)
+                if params:
+                    response = requests.post(url, headers=headers, params=params, timeout=10)
+                else:
+                    response = requests.post(url, json=data, headers=headers, timeout=10)
 
             success = response.status_code == expected_status
             if success:
