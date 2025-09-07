@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
@@ -9,7 +9,8 @@ import { Label } from "./components/ui/label";
 import { Alert, AlertDescription } from "./components/ui/alert";
 import { Phone, LogOut, AlertCircle, CheckCircle2 } from "lucide-react";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// Webhook URL for call initiation
+const WEBHOOK_URL = "https://n8n.srv743759.hstgr.cloud/webhook/netsurf";
 
 // Auth Context
 const AuthContext = {
@@ -144,7 +145,7 @@ const CallInitiation = ({ onLogout }) => {
         PCAP: "netsurf"
       };
 
-      const response = await axios.post("https://n8n.srv743759.hstgr.cloud/webhook/netsurf", payload, {
+      const response = await axios.post(WEBHOOK_URL, payload, {
         headers: {
           "Content-Type": "application/json"
         },
