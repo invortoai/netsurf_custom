@@ -77,25 +77,25 @@ class NetSurfAPITester:
         print("="*50)
         
         # Test valid login
-        valid_data = {
+        valid_params = {
             "email": "test@netsurfdirect.com",
             "password": "Invorto2025"
         }
-        self.run_test("Valid Login", "POST", "api/auth/login", 200, data=valid_data)
+        self.run_test("Valid Login", "POST", "api/auth/login", 200, params=valid_params)
         
         # Test invalid domain
-        invalid_domain_data = {
+        invalid_domain_params = {
             "email": "test@gmail.com",
             "password": "Invorto2025"
         }
-        self.run_test("Invalid Domain", "POST", "api/auth/login", 401, data=invalid_domain_data)
+        self.run_test("Invalid Domain", "POST", "api/auth/login", 401, params=invalid_domain_params)
         
         # Test invalid password
-        invalid_password_data = {
+        invalid_password_params = {
             "email": "test@netsurfdirect.com",
             "password": "wrongpassword"
         }
-        self.run_test("Invalid Password", "POST", "api/auth/login", 401, data=invalid_password_data)
+        self.run_test("Invalid Password", "POST", "api/auth/login", 401, params=invalid_password_params)
 
     def test_call_logging(self):
         """Test call logging endpoints"""
