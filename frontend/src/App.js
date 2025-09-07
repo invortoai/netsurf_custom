@@ -72,7 +72,6 @@ const Login = ({ onLogin }) => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="your.name@netsurfdirect.com"
                 className="h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500"
                 required
               />
