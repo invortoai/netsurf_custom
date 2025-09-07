@@ -1,74 +1,46 @@
 # NetSurf Custom - Call Management System
 
-A frontend-only web application for managing call operations with React and direct webhook integration.
+A simple, static HTML/CSS/JavaScript application for managing call operations with direct webhook integration.
 
 ## 🚀 Features
 
 - Frontend-only authentication with @netsurfdirect.com domain validation
 - Phone number input and validation
 - Direct call initiation through external webhook
-- Responsive UI with Tailwind CSS
-- No backend required - everything runs in the browser
+- Responsive UI with pure CSS
+- No dependencies - everything runs in the browser
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18, Tailwind CSS, Axios
+- **Frontend**: Pure HTML, CSS, JavaScript (no frameworks)
 - **Deployment**: GitHub Pages
 - **External Integration**: n8n webhook for call processing
 
-## 📋 Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn package manager
-
 ## 🔧 Local Development Setup
 
-1. **Navigate to frontend directory:**
+1. **Simply open the file in your browser:**
+   - Navigate to `frontend/index.html` in your file explorer
+   - Right-click and select "Open with" your preferred browser
+
+2. **Or use a local server (recommended):**
    ```bash
+   # If you have Python installed
    cd frontend
+   python -m http.server 8000
+   
+   # Or with Node.js (if you have http-server installed)
+   cd frontend
+   npx http-server
    ```
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Start the development server:**
-   ```bash
-   npm start
-   # or
-   yarn start
-   ```
-   Frontend will run on `http://localhost:3000`
-
-That's it! No backend setup required - everything runs in the browser.
+That's it! No build process or dependencies required - everything runs directly in the browser.
 
 ## 🚀 Production Deployment
 
 ### GitHub Pages Deployment
 
-1. **The homepage is already configured for your GitHub account:**
-   ```json
-   "homepage": "https://invortoai.github.io/netsurf-custom"
-   ```
-
-2. **Deploy to GitHub Pages:**
-   ```bash
-   cd frontend
-   npm run deploy
-   # or
-   yarn deploy
-   ```
-
-3. **Or use GitHub Actions (Automatic):**
-   Simply push to the main branch and GitHub Actions will automatically build and deploy your site.
-
-## 🔐 Authentication
-
-- **Email Domain**: Only `@netsurfdirect.com` emails are allowed
-- **Password**: `Invorto2025` (for demo purposes)
+Simply push to the main branch and GitHub Actions will automatically deploy your site to:
+`https://invortoai.github.io/netsurf-custom`
 
 ## 🔌 External Integration
 
@@ -77,51 +49,17 @@ That's it! No backend setup required - everything runs in the browser.
 - **Purpose**: Processes call initiation requests
 - **Payload**: `{ number: "1234567890", call_attempted: "No", PCAP: "netsurf" }`
 
-## 🧪 Testing
-
-### Frontend Tests
-```bash
-cd frontend
-npm test
-# or
-yarn test
-```
-
 ## 📁 Project Structure
 
 ```
 netsurf-custom/
 ├── frontend/
-│   ├── src/
-│   │   ├── App.js        # Main React app with authentication & call logic
-│   │   ├── index.css     # Global styles with Tailwind
-│   │   └── components/   # UI components (shadcn/ui)
-│   ├── public/
-│   │   └── index.html    # HTML template
-│   ├── package.json      # Frontend dependencies
-│   ├── craco.config.js   # CRACO configuration for Tailwind
-│   ├── .env.development  # Development environment
-│   └── .env.production   # Production environment
+│   └── index.html    # Complete application in a single file
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml    # GitHub Actions deployment
 └── README.md
 ```
-
-## 🔧 Configuration
-
-### Environment Variables
-
-**Frontend:**
-- `REACT_APP_NODE_ENV`: Environment (development/production)
-- `GENERATE_SOURCEMAP`: Whether to generate source maps
-
-## 🚀 CI/CD
-
-The project includes GitHub Actions workflow for automatic deployment:
-- Triggers on push to main branch
-- Builds and deploys frontend to GitHub Pages
-- No backend deployment needed - everything runs client-side
 
 ## 🎯 How It Works
 
