@@ -2,22 +2,9 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
-import { Label } from "./components/ui/label";
-import { Alert, AlertDescription } from "./components/ui/alert";
-import { Phone, LogOut, AlertCircle, CheckCircle2 } from "lucide-react";
 
 // Webhook URL for call initiation
 const WEBHOOK_URL = "https://n8n.srv743759.hstgr.cloud/webhook/netsurf";
-
-// Auth Context
-const AuthContext = {
-  isLoggedIn: false,
-  login: () => {},
-  logout: () => {}
-};
 
 // Login Component
 const Login = ({ onLogin }) => {
@@ -56,56 +43,58 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-xl border-0 bg-white">
-        <CardHeader className="text-center space-y-2 pb-8">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-xl border-0 p-8">
+        <div className="text-center space-y-2 pb-8">
           <div className="mx-auto w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-            <Phone className="w-8 h-8 text-white" />
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
           </div>
-          <CardTitle className="text-2xl font-bold text-slate-800">NetSurf Direct</CardTitle>
-          <CardDescription className="text-slate-600">Call Management System</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-700 font-medium">Email Address</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter the designated Email"
-                className="h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500"
-                required
-              />
+          <h1 className="text-2xl font-bold text-slate-800">NetSurf Direct</h1>
+          <p className="text-slate-600">Call Management System</p>
+        </div>
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-slate-700 font-medium block">Email Address</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter the designated Email"
+              className="w-full h-11 px-3 border border-slate-200 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="password" className="text-slate-700 font-medium block">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              className="w-full h-11 px-3 border border-slate-200 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+              required
+            />
+          </div>
+          {error && (
+            <div className="border border-red-200 bg-red-50 rounded-md p-3 flex items-center space-x-2">
+              <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-red-700">{error}</span>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                className="h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500"
-                required
-              />
-            </div>
-            {error && (
-              <Alert className="border-red-200 bg-red-50">
-                <AlertCircle className="h-4 w-4 text-red-600" />
-                <AlertDescription className="text-red-700">{error}</AlertDescription>
-              </Alert>
-            )}
-            <Button 
-              type="submit" 
-              className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-medium"
-              disabled={loading}
-            >
-              {loading ? "Signing in..." : "Sign In"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+          )}
+          <button 
+            type="submit" 
+            className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
@@ -176,7 +165,9 @@ const CallInitiation = ({ onLogout }) => {
         <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Phone className="w-5 h-5 text-white" />
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
             </div>
             <div>
               <h1 className="text-xl font-bold text-slate-800">NetSurf Direct</h1>
@@ -185,75 +176,77 @@ const CallInitiation = ({ onLogout }) => {
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-sm text-slate-600">Welcome, {userEmail}</span>
-            <Button 
-              variant="outline" 
-              size="sm"
+            <button 
               onClick={handleLogout}
-              className="border-slate-200 hover:bg-slate-50"
+              className="px-3 py-1 border border-slate-200 hover:bg-slate-50 rounded-md text-sm flex items-center space-x-2"
             >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
-            </Button>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              <span>Sign Out</span>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex items-center justify-center p-8">
-        <Card className="w-full max-w-lg shadow-xl border-0 bg-white">
-          <CardHeader className="text-center pb-8">
-            <CardTitle className="text-2xl font-bold text-slate-800">Initiate Call</CardTitle>
-            <CardDescription className="text-slate-600">
+        <div className="w-full max-w-lg bg-white rounded-lg shadow-xl border-0 p-8">
+          <div className="text-center pb-8">
+            <h2 className="text-2xl font-bold text-slate-800">Initiate Call</h2>
+            <p className="text-slate-600 mt-2">
               Enter the 10-digit mobile number to initiate a call
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleInitiateCall} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-slate-700 font-medium">Mobile Number</Label>
-                <div className="relative">
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={phoneNumber}
-                    onChange={handleNumberChange}
-                    placeholder="9876543210"
-                    className="h-12 text-lg font-mono border-slate-200 focus:border-blue-500 focus:ring-blue-500 pl-4"
-                    maxLength={10}
-                    required
-                  />
-                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-slate-500">
-                    {phoneNumber.length}/10
-                  </div>
+            </p>
+          </div>
+          <form onSubmit={handleInitiateCall} className="space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="phone" className="text-slate-700 font-medium block">Mobile Number</label>
+              <div className="relative">
+                <input
+                  id="phone"
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={handleNumberChange}
+                  placeholder="9876543210"
+                  className="w-full h-12 text-lg font-mono border border-slate-200 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none pl-4 pr-16"
+                  maxLength={10}
+                  required
+                />
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-slate-500">
+                  {phoneNumber.length}/10
                 </div>
               </div>
+            </div>
 
-              {success && (
-                <Alert className="border-green-200 bg-green-50">
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
-                  <AlertDescription className="text-green-700">
-                    Call initiated successfully for {phoneNumber}
-                  </AlertDescription>
-                </Alert>
-              )}
+            {success && (
+              <div className="border border-green-200 bg-green-50 rounded-md p-3 flex items-center space-x-2">
+                <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-green-700">
+                  Call initiated successfully for {phoneNumber}
+                </span>
+              </div>
+            )}
 
-              {error && (
-                <Alert className="border-red-200 bg-red-50">
-                  <AlertCircle className="h-4 w-4 text-red-600" />
-                  <AlertDescription className="text-red-700">{error}</AlertDescription>
-                </Alert>
-              )}
+            {error && (
+              <div className="border border-red-200 bg-red-50 rounded-md p-3 flex items-center space-x-2">
+                <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-red-700">{error}</span>
+              </div>
+            )}
 
-              <Button 
-                type="submit" 
-                className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium text-lg"
-                disabled={loading || phoneNumber.length !== 10}
-              >
-                {loading ? "Initiating..." : "Initiate Call"}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+            <button 
+              type="submit" 
+              className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium text-lg rounded-md disabled:opacity-50"
+              disabled={loading || phoneNumber.length !== 10}
+            >
+              {loading ? "Initiating..." : "Initiate Call"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
